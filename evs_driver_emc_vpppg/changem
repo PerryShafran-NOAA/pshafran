@@ -1,0 +1,11 @@
+#
+
+ls -1 *sh> list
+set files = ( `cat list` )
+foreach file ($files)
+sed 's/ECFevs/SCRIPTevs/g' $file > $file.new
+mv $file.new $file
+end
+
+exit
+

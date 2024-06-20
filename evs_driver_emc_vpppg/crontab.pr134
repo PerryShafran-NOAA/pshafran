@@ -1,0 +1,20 @@
+SHELL=/bin/bash -l
+
+### HOURLY JOBS ###
+
+# Cron to run radar prep step
+#05 * * * * /lfs/h2/emc/vpppg/save/${USER}/EVS_crons/drive_jevs_cam_radar_prep.sh 1>/lfs/h2/emc/ptmp/${USER}/cron.out/jevs_cam_radar_prep.out 2>&1
+
+# Cron to generate radar stats
+40 * * * * /lfs/h2/emc/vpppg/save/${USER}/EVS_crons/drive_cam_radar_stats.sh 1>/lfs/h2/emc/ptmp/${USER}/cron.out/cam_radar_stats.out 2>&1
+
+
+### DAILY JOBS ###
+
+# Cron to prep SPC LSR data for severe verification
+#30 07 * * * /lfs/h2/emc/vpppg/save/${USER}/EVS_crons/drive_jevs_cam_severe_prep.sh 1>/lfs/h2/emc/ptmp/${USER}/cron.out/jevs_cam_severe_prep.out 2>&1
+
+# Cron to generate severe stats
+01 08 * * * /lfs/h2/emc/vpppg/save/${USER}/EVS_crons/drive_cam_severe_stats.sh 1>/lfs/h2/emc/ptmp/${USER}/cron.out/cam_severe_stats.out 2>&1
+
+

@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+###########################################################
+# Called on a cron to run EVS jobs                        #
+###########################################################
+
+set -x
+
+now=`date -u +%Y%m%d%H`
+vhr=`echo $now | cut -c 9-10`
+
+mkdir -p /lfs/h2/emc/ptmp/${USER}/output
+cd /lfs/h2/emc/ptmp/${USER}/output
+
+module reset
+
+models="cfs gefs"
+verif_cases="grid2obs grid2grid"
+
+for model in ${models}; do
+for verif_case in ${verif_cases}; do
+
+qsub ${SCRIPTevs}/subseasonal/stats/jevs_${model}_subseasonal_${verif_case}_stats.sh
+
+done
+done
+
+exit
+

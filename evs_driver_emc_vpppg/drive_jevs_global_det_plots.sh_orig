@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+###########################################################
+# Called on a cron to run EVS jobs                        #
+###########################################################
+
+now=`date -u +%Y%m%d%H`
+vhr=`echo $now | cut -c 9-10`
+
+mkdir -p /lfs/h2/emc/ptmp/${USER}/output
+cd /lfs/h2/emc/ptmp/${USER}/output
+
+module reset
+
+periods="31days 90days"
+verif_cases="grid2grid grid2obs"
+
+for verif_case in ${verif_cases}; do
+
+   if [ $verif_case = grid2grid ]; then
+      types="pres_levs precip snow sea_ice means"
+   elif [ $verif_case = grid2obs ]; then
+      types="pres_levs sfc ptype"
+   fi
+
+   for period in ${periods}; do
+    for type in ${types}; do
+      qsub ${ECFevs}/global_det/plots/jevs_global_det_atmos_${verif_case}_{$type}_plots_${period}.ecf
+    done
+   done
+
+exit
+
